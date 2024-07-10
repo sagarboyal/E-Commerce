@@ -59,7 +59,34 @@ public class UserRepoTest {
     @Test
     public void testListOfUsers(){
         List<User> list = userRepository.findAll();
-        list.forEach(user -> System.out.println(user));
+        list.forEach(System.out::println);
         assertThat(list.stream().toList());
+    }
+    @Test
+    public void testUsersById(){
+        User user = userRepository.findById(3).get();
+        System.out.println(user);
+        assertThat(user).isNotNull();
+    }
+    @Test
+    public void testUpdateUsersById(){
+        User user = userRepository.findById(1).get();
+        user.setFirstName("Sagar");
+        user.setLastName("Boyal");
+        User updateUser = userRepository.save(user);
+        assertThat(updateUser).isNotNull();
+    }
+    @Test
+    public void testUpdateUsersRole(){
+        User user = userRepository.findById(1).get();
+        user.addRoles(new Role(3));
+        User updateUser = userRepository.save(user);
+        assertThat(updateUser).isNotNull();
+    }
+    @Test
+    public void testDeleteUserById(){
+        User user = userRepository.findById(2).get();
+        if(user != null) userRepository.deleteById(2);
+        assertThat(user).isNotNull();
     }
 }
