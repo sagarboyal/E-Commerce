@@ -15,7 +15,7 @@ import java.util.Set;
 public class User {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
     @Column(length = 128, nullable = false, unique = true)
     private String email;
     @Column(length = 64, nullable = false)

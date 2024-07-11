@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Home Page - Flipkart Admin Control Panel</title>
+        <title>User Page - Flipkart Admin Control Panel</title>
         <link rel="icon" th:href="@{/images/small.svg}" type="image/svg+xml">
         <meta name="description">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,7 +70,35 @@
             </div>
 
             <div>   
-                <h1>Flipkart Admin Control Panel</h1>
+                <h2>Manage User: Flipkart Admin Control Panel</h2>
+            </div>
+            <div>
+                <table class="table table-responsive-xl table-border table-striped table-hover">
+                    <thead class="thead-white">
+                    <tr>
+                            <th>User ID</th>
+                            <th>Photos</th>
+                            <th>Email</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Roles</th>
+                            <th>Enabled</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${listUsers}" >
+                            <!-- All field must be same as user entity class -->
+                            <td>[[${user.id}]]</td>
+                            <td></td>
+                            <td>[[${user.email}]]</td>
+                            <td>[[${user.firstName}]]</td>
+                            <td>[[${user.lastName}]]</td>
+                            <td>[[${user.roles}]]</td>
+                            <td>[[${user.enabled}]]</td>
+                            <td> Edit &nbsp; Delete</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="text-center">
                 <p>Flipkart Control Panel - copyright &copy; Flipkart</p>
