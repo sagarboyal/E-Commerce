@@ -86,7 +86,13 @@ public class UserRepoTest {
     @Test
     public void testDeleteUserById(){
         User user = userRepository.findById(2).get();
-        if(user != null) userRepository.deleteById(2);
+        userRepository.deleteById(2);
         assertThat(user).isNotNull();
+    }
+    @Test
+    public void testUniqueEmail(){
+        String email = "demo1@gmail.com";
+        User data = userRepository.getUserByEmail(email);
+        assertThat(data).isNull();
     }
 }
