@@ -1,13 +1,11 @@
 package com.ecommerce.main.controller;
 
 import com.ecommerce.main.entity.User;
+import com.ecommerce.main.exceptions.UserNotFoundException;
 import com.ecommerce.main.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -29,6 +27,7 @@ public class UserController {
     public String newUserHandler(Model model){
         User user = new User();
         user.setEnabled(true);
+        model.addAttribute("pageTitle", "Register New User");
         model.addAttribute("user", user);
         model.addAttribute("listRoles", userService.listRoles());
         return "admin/user_form";
@@ -41,6 +40,21 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
         else
             redirectAttributes.addFlashAttribute("message", "Something Wrong!!!");
-    return "redirect:/users";
+        return "redirect:/users";
+    }
+    @GetMapping("update/{id}")
+    public String updateUserHandler(@PathVariable(name = "id") Integer id,
+                                    Model model,
+                                    RedirectAttributes redirectAttributes){
+        try{
+            User data = userService.findById(id);
+            model.addAttribute("pageTitle", "Edit User With ID "+id);
+            model.addAttribute("user", data);
+            model.addAttribute("listRoles", userService.listRoles());
+            return "admin/user_form";
+        }catch (UserNotFoundException ex) {
+            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+            return "redirect:/users";
+        }
     }
 }

@@ -8,6 +8,8 @@
         <meta name="description">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/font awesome/all.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
         <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
         <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     </head>
@@ -94,13 +96,24 @@
                         <tr th:each="user : ${listUsers}" >
                             <!-- All field must be same as user entity class -->
                             <td>[[${user.id}]]</td>
-                            <td></td>
+                            <td><span class="fas fa-portrait fa-3x icon-gray"></span></td>
                             <td>[[${user.email}]]</td>
                             <td>[[${user.firstName}]]</td>
                             <td>[[${user.lastName}]]</td>
                             <td>[[${user.roles}]]</td>
-                            <td>[[${user.enabled}]]</td>
-                            <td> Edit &nbsp; Delete</td>
+                            <td>
+                                <a th:if="${user.enabled == true}"
+                                        class="fas fa-check-circle fa-2x icon-blue" href=""></a>
+                                <a th:if="${user.enabled == false}"
+                                   class="fas fa-check-circle fa-2x icon-gray" href=""></a>
+                            </td>
+                            <td>
+                                <a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/update/' + ${user.id}}"
+                                        title="edit this user"></a>
+                                &nbsp;
+                                <a class="fas fa-trash fa-2x icon-red" th:href="@{'/users/delete/' + ${user.id}}"
+                                        title="delete this user"></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
