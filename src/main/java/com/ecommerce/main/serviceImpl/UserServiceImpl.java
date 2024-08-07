@@ -58,11 +58,23 @@ public class UserServiceImpl implements UserService {
         if (data == null) return true;
         boolean isCreatingNew = (id == null);
         if (isCreatingNew){
-            if (data != null) return false;
+            if(data != null) return false;
         }else{
             if(data.getId() != id) return false;
         }
         return true;
+    }
+
+    @Override
+    public User deleteUser(Integer id) throws UserNotFoundException {
+       Long count  = userRepository.countById(id);
+       User data = null;
+       if(count == null || count == 0) throw new UserNotFoundException("Could not find any user with ID "+id);
+       else {
+           data = findById(id);
+           userRepository.deleteById(id);
+       }
+       return data;
     }
 
     @Override

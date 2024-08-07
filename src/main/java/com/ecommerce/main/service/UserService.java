@@ -11,6 +11,6 @@ public interface UserService {
     public List<Role> listRoles();
     public User saveUser(User user);
     public boolean uniqueEmail(Integer id, String email);
-
+    public  User deleteUser(Integer id) throws UserNotFoundException;
     public User findById(Integer id) throws UserNotFoundException;
 }
