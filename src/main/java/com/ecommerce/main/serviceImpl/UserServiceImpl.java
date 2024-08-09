@@ -6,6 +6,7 @@ import com.ecommerce.main.exceptions.UserNotFoundException;
 import com.ecommerce.main.repository.RoleRepository;
 import com.ecommerce.main.repository.UserRepository;
 import com.ecommerce.main.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Transactional // for enable status direct interact and modify database.
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -84,5 +86,10 @@ public class UserServiceImpl implements UserService {
         }catch (NoSuchElementException e){
             throw new UserNotFoundException("Could not find any user with ID "+id);
         }
+    }
+
+    @Override
+    public void updateUserStatus(Integer id, boolean enabled) {
+        userRepository.updateEnableStatus(id, enabled);
     }
 }

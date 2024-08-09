@@ -102,4 +102,9 @@ public class UserRepoTest {
         Long count = userRepository.countById(id);
         assertThat(count).isNotNull().isGreaterThan(0);
     }
+    @Test
+    public void testStatusUpdate(){
+        Integer id = 1;
+        userRepository.updateEnableStatus(id, true);
+    }
 }
