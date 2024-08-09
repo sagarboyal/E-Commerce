@@ -1,12 +1,18 @@
 package com.ecommerce.main.controller;
 
+import com.ecommerce.main.configuration.FileUploadUtil;
 import com.ecommerce.main.entity.User;
 import com.ecommerce.main.exceptions.UserNotFoundException;
 import com.ecommerce.main.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/users")
@@ -34,12 +40,33 @@ public class UserController {
     }
     @PostMapping("/save")
     public String saveUserHandler(@ModelAttribute("user") User user,
-                                  RedirectAttributes redirectAttributes){
-        User data = userService.saveUser(user);
-        if(data != null)
-            redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
-        else
-            redirectAttributes.addFlashAttribute("message", "Something Wrong!!!");
+                                  RedirectAttributes redirectAttributes,
+                                  @RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+
+        if (!multipartFile.isEmpty()) {
+            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+
+            // Validate the filename to prevent security issues
+            if (fileName.contains("..")) {
+                redirectAttributes.addFlashAttribute("message", "Invalid file path!");
+                return "redirect:/users";
+            }
+
+            // Set the filename to the user's photo field and save
+            user.setPhotos(fileName);
+            User savedUser = userService.saveUser(user);
+
+            // Save the file in the specified directory
+            String uploadDir = "user-photos/" + savedUser.getId();
+            FileUploadUtil.cleanDir(uploadDir);
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        }else{
+            if(user.getPhotos().isEmpty()) user.setPhotos(null);
+            userService.saveUser(user);
+        }
+
+        redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
         return "redirect:/users";
     }
     @GetMapping("update/{id}")
