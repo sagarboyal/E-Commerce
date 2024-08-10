@@ -7,6 +7,9 @@ import com.ecommerce.main.repository.RoleRepository;
 import com.ecommerce.main.repository.UserRepository;
 import com.ecommerce.main.service.UserService;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -91,5 +94,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserStatus(Integer id, boolean enabled) {
         userRepository.updateEnableStatus(id, enabled);
+    }
+
+    @Override
+    public Page<User> listByPage(Integer pageNum){
+        Pageable pageable = PageRequest.of(pageNum-1, USER_PER_PAGE);
+        return userRepository.findAll(pageable);
     }
 }

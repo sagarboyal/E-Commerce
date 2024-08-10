@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name ="user")
+@Table(name ="users")
 public class User {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class User {
     private boolean enabled;
     @ManyToMany
     @JoinTable(
-            name = "user_role",
+            name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
