@@ -5,6 +5,7 @@ import com.ecommerce.main.entity.User;
 import com.ecommerce.main.exceptions.UserNotFoundException;
 import com.ecommerce.main.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -28,11 +29,13 @@ public class UserController {
 
     @GetMapping
     public String listAll(Model model){
-        return "redirect:/users/page/1";
+        return listByPage(model, 1, "id", "asc"); // sortField name same as the class variable name
     }
     @GetMapping("page/{pageNumber}")
-    public String listByPage(Model model, @PathVariable("pageNumber")int pageNumber){
-        Page<User> userPage = userService.listByPage(pageNumber);
+    public String listByPage(Model model, @PathVariable("pageNumber")int pageNumber,
+                             @Param("sortField") String sortField,
+                             @Param("sortDir") String sortDir){
+        Page<User> userPage = userService.listByPage(pageNumber, sortField, sortDir);
         List<User> userList = userPage.getContent();
 
         long startCount = (long) (pageNumber - 1) * UserService.USER_PER_PAGE + 1;
@@ -47,6 +50,8 @@ public class UserController {
         model.addAttribute("endCount", endCount);
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", userPage.getTotalPages());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
         return "admin/users";
     }
     @GetMapping("/new")
