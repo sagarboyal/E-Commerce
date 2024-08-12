@@ -17,5 +17,5 @@ public interface UserService {
     public  User deleteUser(Integer id) throws UserNotFoundException;
     public User findById(Integer id) throws UserNotFoundException;
     public void updateUserStatus(Integer id, boolean enabled);
-    public Page<User> listByPage(Integer pageNum, String sortField, String sortDir);
+    public Page<User> listByPage(Integer pageNum, String sortField, String sortDir, String keyword);
 }

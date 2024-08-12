@@ -120,4 +120,14 @@ public class UserRepoTest {
         userList.forEach(System.out::println);
         assertThat(userList.size()).isEqualTo(pageSize);
     }
+    @Test
+    public void testSearchUser(){
+        String keyword = "bruce";
+        int pageNumber = 0;
+        int pageSize = 4;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<User> userPage = userRepository.findAll(keyword, pageable);
+        List<User> userList = userPage.getContent();
+        userList.forEach(System.out::println);
+    }
 }

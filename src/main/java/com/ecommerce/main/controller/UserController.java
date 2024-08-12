@@ -29,13 +29,14 @@ public class UserController {
 
     @GetMapping
     public String listAll(Model model){
-        return listByPage(model, 1, "id", "asc"); // sortField name same as the class variable name
+        return listByPage(model, 1, "id", "asc", null); // sortField name same as the class variable name
     }
     @GetMapping("page/{pageNumber}")
     public String listByPage(Model model, @PathVariable("pageNumber")int pageNumber,
                              @Param("sortField") String sortField,
-                             @Param("sortDir") String sortDir){
-        Page<User> userPage = userService.listByPage(pageNumber, sortField, sortDir);
+                             @Param("sortDir") String sortDir,
+                             @Param("keyword") String keyword){
+        Page<User> userPage = userService.listByPage(pageNumber, sortField, sortDir, keyword);
         List<User> userList = userPage.getContent();
 
         long startCount = (long) (pageNumber - 1) * UserService.USER_PER_PAGE + 1;
@@ -52,6 +53,7 @@ public class UserController {
         model.addAttribute("totalPages", userPage.getTotalPages());
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
+        model.addAttribute("keyword", keyword);
         return "admin/users";
     }
     @GetMapping("/new")

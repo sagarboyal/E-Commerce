@@ -77,43 +77,62 @@
                 <a th:href="@{/users/new}">Create new user</a>
             </div>
 
-            <!-- Dropdown Button -->
-            <div class="dropdown d-flex justify-content-end pb-3">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort By:
-                </button>
-                <!-- Dropdown Menu -->
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}}">
-                        User ID
-                        <span th:if="${sortField == 'id'}"
-                        th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-                    </a>
-                    <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}}">
-                        Email
-                        <span th:if="${sortField == 'email'}"
-                              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-                    </a>
-                    <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}}">
-                        First Name
-                        <span th:if="${sortField == 'firstName'}"
-                              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-                    </a>
-                    <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}}">
-                        Last Name
-                        <span th:if="${sortField == 'lastName'}"
-                              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-                    </a>
-                    <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=roles&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}}">
-                        Roles
-                        <span th:if="${sortField == 'roles'}"
-                              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-                    </a>
-                    <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}}">
-                        Enable
-                        <span th:if="${sortField == 'enabled'}"
-                              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-                    </a>
+            <div class="d-flex justify-content-between">
+                <!-- Search Bar -->
+                <form th:action="@{/users/page/1}" class="form-inline m-3">
+                   <input type="hidden" name="sortField" th:value="${sortField}"/>
+                    <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+                    Search:&nbsp;
+                    <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
+                    &nbsp;&nbsp;
+                    <input type="submit" value="Search" class="btn btn-primary"/>
+                    &nbsp;&nbsp;
+                    <input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()"/>
+                </form>
+                <!-- Dropdown Button -->
+                <div class="dropdown m-3">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort By:
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}
+                                            + ${keyword != null ? '&keyword=' + keyword : ''}}">
+                            User ID
+                            <span th:if="${sortField == 'id'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                        </a>
+                        <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}
+                                            + ${keyword != null ? '&keyword=' + keyword : ''}}">
+                            Email
+                            <span th:if="${sortField == 'email'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                        </a>
+                        <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}
+                                            + ${keyword != null ? '&keyword=' + keyword : ''}}">
+                            First Name
+                            <span th:if="${sortField == 'firstName'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                        </a>
+                        <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}
+                                    + ${keyword != null ? '&keyword=' + keyword : ''}}">
+                            Last Name
+                            <span th:if="${sortField == 'lastName'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                        </a>
+                        <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=roles&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}
+                                            + ${keyword != null ? '&keyword=' + keyword : ''}}">
+                            Roles
+                            <span th:if="${sortField == 'roles'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                        </a>
+                        <a class="dropdown-item" th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&' + 'sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}
+                                        + ${keyword != null ? '&keyword=' + keyword : ''}}">
+                            Enable
+                            <span th:if="${sortField == 'enabled'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -174,23 +193,24 @@
                     <ul class="pagination justify-content-center">
                         <li th:class="${currentPage != 1 ? 'page-item' : 'page-item disabled'}">
                             <a class="page-link"
-                               th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a>
+                               th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">First</a>
                         </li>
                         <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
                             <a  class="page-link"
-                                th:href="@{'/users/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+                                th:href="@{'/users/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Previous</a>
                         </li>
                         <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}" th:each="i : ${#numbers.sequence(1, totalPages)}">
                             <a class="page-link"
-                               th:href="@{'/users/page/' + ${i} +'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                               th:href="@{'/users/page/' + ${i} +'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${i}]]</a>
                         </li>
                         <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
                             <a class="page-link"
-                               th:href="@{'/users/page/' + ${currentPage + 1} +'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                               th:href="@{'/users/page/' + ${currentPage + 1} +'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Next</a>
                         </li>
                         <li th:class="${currentPage != totalPages ? 'page-item' : 'page-item disabled'}">
                             <a class="page-link"
-                               th:href="@{'/users/page/' + ${totalPages} +'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                               th:href="@{'/users/page/' + ${totalPages} +'?sortField='
+                                        + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
                         </li>
                     </ul>
                 </nav>
@@ -231,6 +251,9 @@
                 $("#confirmModal").modal();
            });
         });
+        function clearFilter(){
+            window.location = "[[@{/users}]]";
+        }
     </script>
     </body>
 </html>
