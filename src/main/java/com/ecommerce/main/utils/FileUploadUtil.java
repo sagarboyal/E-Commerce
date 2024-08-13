@@ -1,4 +1,4 @@
-package com.ecommerce.main.configuration;
+package com.ecommerce.main.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 

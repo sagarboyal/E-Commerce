@@ -1,9 +1,11 @@
 package com.ecommerce.main.controller;
 
-import com.ecommerce.main.configuration.FileUploadUtil;
+import com.ecommerce.main.utils.FileUploadUtil;
 import com.ecommerce.main.entity.User;
 import com.ecommerce.main.exceptions.UserNotFoundException;
 import com.ecommerce.main.service.UserService;
+import com.ecommerce.main.utils.UserCsvExporter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -138,5 +140,11 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message", "The user ID " + id +
                                                 " has been " + s);
         return "redirect:/users";
+    }
+    @GetMapping("export/csv")
+    public void exportCsvHandler(HttpServletResponse response) throws IOException {
+        List<User> userList = userService.listAll(); // by default ascending order by user id to change update list all function in User Service by changing properties of sort by function
+        UserCsvExporter exporter = new UserCsvExporter();
+        exporter.export(userList, response);
     }
 }
