@@ -94,8 +94,15 @@ public class UserController {
         }
 
         redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
-        return "redirect:/users";
+
+        return getRedirectUrlForEffectedUser(user);
     }
+
+    private static String getRedirectUrlForEffectedUser(User user) {
+        String email = user.getEmail();//.split("@")[0];
+        return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + email;
+    }
+
     @GetMapping("update/{id}")
     public String updateUserHandler(@PathVariable(name = "id") Integer id,
                                     Model model,
