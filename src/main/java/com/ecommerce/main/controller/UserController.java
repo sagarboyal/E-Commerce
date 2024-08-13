@@ -5,6 +5,7 @@ import com.ecommerce.main.entity.User;
 import com.ecommerce.main.exceptions.UserNotFoundException;
 import com.ecommerce.main.service.UserService;
 import com.ecommerce.main.utils.UserCsvExporter;
+import com.ecommerce.main.utils.UserExcelExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -145,6 +146,12 @@ public class UserController {
     public void exportCsvHandler(HttpServletResponse response) throws IOException {
         List<User> userList = userService.listAll(); // by default ascending order by user id to change update list all function in User Service by changing properties of sort by function
         UserCsvExporter exporter = new UserCsvExporter();
+        exporter.export(userList, response);
+    }
+    @GetMapping("export/excel")
+    public void exportExcelHandler(HttpServletResponse response) throws IOException {
+        List<User> userList = userService.listAll(); // by default ascending order by user id to change update list all function in User Service by changing properties of sort by function
+        UserExcelExporter exporter = new UserExcelExporter();
         exporter.export(userList, response);
     }
 }
