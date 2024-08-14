@@ -4,8 +4,9 @@ import com.ecommerce.main.utils.FileUploadUtil;
 import com.ecommerce.main.entity.User;
 import com.ecommerce.main.exceptions.UserNotFoundException;
 import com.ecommerce.main.service.UserService;
-import com.ecommerce.main.utils.UserCsvExporter;
-import com.ecommerce.main.utils.UserExcelExporter;
+import com.ecommerce.main.utils.csvExporter.UserCsvExporter;
+import com.ecommerce.main.utils.excelExporter.UserExcelExporter;
+import com.ecommerce.main.utils.pdfExporter.UserPdfExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -152,6 +153,12 @@ public class UserController {
     public void exportExcelHandler(HttpServletResponse response) throws IOException {
         List<User> userList = userService.listAll(); // by default ascending order by user id to change update list all function in User Service by changing properties of sort by function
         UserExcelExporter exporter = new UserExcelExporter();
+        exporter.export(userList, response);
+    }
+    @GetMapping("export/pdf")
+    public void exportPdfHandler(HttpServletResponse response) throws IOException {
+        List<User> userList = userService.listAll(); // by default ascending order by user id to change update list all function in User Service by changing properties of sort by function
+        UserPdfExporter exporter = new UserPdfExporter();
         exporter.export(userList, response);
     }
 }
