@@ -74,13 +74,13 @@
 
             <div class="mt-2 mb-3">
                 <h2>Manage User: Flipkart Admin Control Panel</h2>
-                <a th:href="@{/users/new}">Create new user</a>
+                <a th:href="@{/users/new}" style="text-decoration: none;">Register new user <i class="fa fa-user-plus icon-gray"></i></a>
                 &nbsp;|&nbsp;
-                <a th:href="@{/users/export/csv}">Export to CSV</a>
+                <a th:href="@{/users/export/csv}" style="text-decoration: none;">Export to CSV <i class="fa fa-file-csv"></i></a>
                 &nbsp;|&nbsp;
-                <a th:href="@{/users/export/excel}">Export to Excel</a>
+                <a th:href="@{/users/export/excel}" style="text-decoration: none;">Export to Excel <i class="fa fa-file-excel icon-green"></i></a>
                 &nbsp;|&nbsp;
-                <a th:href="@{/users/export/pdf}">Export to PDF</a>
+                <a th:href="@{/users/export/pdf}" style="text-decoration: none;">Export to PDF <i class="fa fa-file-pdf icon-red"></i></a>
             </div>
 
             <div class="d-flex justify-content-between">
@@ -88,12 +88,16 @@
                 <form th:action="@{/users/page/1}" class="form-inline m-3">
                    <input type="hidden" name="sortField" th:value="${sortField}"/>
                     <input type="hidden" name="sortDir" th:value="${sortDir}"/>
-                    Search:&nbsp;
-                    <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
+                    Filter:&nbsp;
+                    <input type="search" name="keyword" th:value="${keyword}" class="form-control" placeholder="Keyword" required/>
                     &nbsp;&nbsp;
-                    <input type="submit" value="Search" class="btn btn-primary"/>
+                    <button type="submit" class="btn btn-primary" title="search any keyword">
+                        <i class="fa fa-search"></i>
+                    </button>
                     &nbsp;&nbsp;
-                    <input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()"/>
+                    <button type="button" class="btn btn-secondary" onclick="clearFilter()" title="reset">
+                        <i class="fa fa-eraser"></i>
+                    </button>
                 </form>
                 <!-- Dropdown Button -->
                 <div class="dropdown m-3">

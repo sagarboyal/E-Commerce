@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login Page - Flipkart Admin</title>
+    <link rel="icon" th:href="@{/images/small.svg}" type="image/svg+xml">
+    <meta name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/font awesome/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+    <div class="container-fluid text-center">
+        <div>
+            <img th:src="@{/images/logo.png}">
+            <span>Flipkart</span>
+        </div>
+        <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto;">
+            <div class="border border-secondary rounded p-3">
+                <p>Access to Flipkart Control Panel</p>
+                <p>
+                    <input type="email" name="email" class="form-control" placeholder="E-mail" required/>
+                </p>
+                <p>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required/>
+                </p>
+                <p>
+                    <input type="submit" value="login" class="btn btn-primary">
+                </p>
+            </div>
+        </form>
+    </div>
+    <div class="text-center">
+        <p>Flipkart Control Panel - copyright &copy; Flipkart</p>
+    </div>
+</body>
+</html>
