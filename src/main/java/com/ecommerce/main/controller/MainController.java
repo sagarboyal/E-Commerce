@@ -3,6 +3,7 @@ package com.ecommerce.main.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MainController {
@@ -12,6 +13,10 @@ public class MainController {
     }
     @GetMapping("/login")
     public String getLoginPage(){
-        return"admin/login";
+        return "admin/login";
     }
+//    @PostMapping("/login")
+//    public String processLoginPage(){
+//        return getHome();
+//    }
 }
