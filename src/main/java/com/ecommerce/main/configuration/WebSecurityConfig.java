@@ -47,7 +47,7 @@ public class WebSecurityConfig {
                         .usernameParameter("email")
                         .permitAll() // Allow access to the login page with authentication
                         .defaultSuccessUrl("/", true) // Redirect to /home after successful login
-                );
+                ).logout(logout -> logout.permitAll()); // It allows everyone (all users) to access the logout endpoint without needing to be authenticated.
         return http.build();
     }
 
