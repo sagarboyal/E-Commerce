@@ -1,29 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>User Page - Flipkart Admin Control Panel</title>
-        <link rel="icon" th:href="@{/images/small.svg}" type="image/svg+xml">
-        <meta name="description">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/font awesome/all.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
-        <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-        <script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-        <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    </head>
+    <head th:replace="fragments:: header('User Page - Flipkart Admin Control Panel')"/>
     <body>
         <div class="container-fluid">
-
             <div>
                 <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
                     <input type="submit">
                 </form>
                 <div th:replace="fragments:: navbar"></div>
             </div>
-
             <div class="mb-3 text-center" >
                 <h2>Manage User: Flipkart Admin Control Panel</h2>
                 <a th:href="@{/users/new}" style="text-decoration: none;">Register new user <i class="fa fa-user-plus icon-gray"></i></a>
@@ -175,10 +160,6 @@
                 $("#yesButton").attr("href", link.attr("href"));
                 $("#confirmText").text("Are you sure you want to delete this user ID "+userId);
                 $("#confirmModal").modal();
-           });
-           $("#logoutLink").on("click", function(e){
-                e.preventDefault();
-                document.logoutForm.submit();
            });
         });
         function clearFilter(){

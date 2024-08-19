@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Home Page - Flipkart Admin Control Panel</title>
-        <link rel="icon" th:href="@{/images/small.svg}" type="image/svg+xml">
-        <meta name="description">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" th:href="@{/font awesome/all.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-        <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-        <script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-        <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    </head>
+    <head th:replace="fragments:: header('Home Page - Flipkart Admin Control Panel')" />
     <body>
         <div class="container-fluid">
             <div>
@@ -28,13 +15,5 @@
             </div>
             <div th:replace="fragments:: footer"></div>
         </div>
-        <script type="text/javascript">
-            $(document).ready(function(){
-               $("#logoutLink").on("click", function(e){
-                    e.preventDefault();
-                    document.logoutForm.submit();
-               });
-            });
-        </script>
     </body>
 </html>
