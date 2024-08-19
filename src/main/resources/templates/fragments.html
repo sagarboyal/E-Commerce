@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -16,5 +17,76 @@
             class="page-link"
        th:href="@{'/users/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
         [[${label}]]</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar" style="margin-top: -20px;">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/images/logo.png}">
+            Flipkart
+        </a>
+
+        <!-- Toggler for mobile screens -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar" aria-controls="topNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="topNavbar">
+            <!-- Centered links -->
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/users}">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Brands</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Customers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Shipping</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Sales Report</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Articles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Menus</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Settings</a>
+                </li>
+            </ul>
+
+            <!-- Logout button on the right -->
+            <!-- User Dropdown Menu -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img th:src="@{/images/default-user.png}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="">
+                        Username
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" th:href="@{/profile}">Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" th:href="@{/logout}">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="text-center" th:fragment="footer">
+        <p>Flipkart Control Panel - copyright &copy; Flipkart</p>
+    </div>
 </body>
 </html>

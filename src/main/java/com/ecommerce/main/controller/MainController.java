@@ -15,7 +15,7 @@ public class MainController {
     public String getLoginPage(){
         return "admin/login";
     }
-//    @PostMapping("/login")
+//    @PostMapping("/login") // because if login successful then where it will redirected that linked in WebSecurityConfig file.
 //    public String processLoginPage(){
 //        return getHome();
 //    }
