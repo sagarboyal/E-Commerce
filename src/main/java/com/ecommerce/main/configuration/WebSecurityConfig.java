@@ -47,7 +47,15 @@ public class WebSecurityConfig {
                         .usernameParameter("email")
                         .permitAll() // Allow access to the login page with authentication
                         .defaultSuccessUrl("/", true) // Redirect to /home after successful login
-                ).logout(logout -> logout.permitAll()); // It allows everyone (all users) to access the logout endpoint without needing to be authenticated.
+                ).logout(logout -> logout.permitAll()) // It allows everyone (all users) to access the logout endpoint without needing to be authenticated.
+                //      Spring Security comes with built-in support to handle the remember-me checkbox.
+                //      By default, Spring expects the checkbox to have the name remember-me.
+                //      If the checkbox is checked, Spring Security will create the "Remember Me" token
+                //      and store it as a cookie on the client-side.
+                .rememberMe(rem -> rem
+                        .key("AbcDefghijKlmnOpqrs_1234567890") //  This key is used to generate and validate "Remember Me" tokens, ensuring that they cannot be tampered with.
+                        .tokenValiditySeconds(7 * 24 * 60 * 60) // Sets the validity period for the "Remember Me" token. Here, it's configured to last for 7 days
+                        .userDetailsService(userDetailsService())); // This service will be called to load user details when the "Remember Me" token is used during login.
         return http.build();
     }
 
