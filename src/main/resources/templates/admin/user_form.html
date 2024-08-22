@@ -1,72 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>[[${pageTitle}]]</title>
-        <link rel="icon" th:href="@{/images/small.svg}" type="image/svg+xml">
-        <meta name="description">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-        <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-        <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    </head>
+    <head th:replace="fragments:: header(${pageHeader})"/>
     <body>
         <div class="container-fluid">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar" style="margin-top: -20px;">
-                <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/images/logo.png}">
-                    Flipkart
-                </a>
+            <div th:replace="fragments:: navbar"></div>
 
-                <!-- Toggler for mobile screens -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar" aria-controls="topNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="topNavbar">
-                    <!-- Centered links -->
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/users}">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Brands</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Customers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Shipping</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Sales Report</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Articles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Menus</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Settings</a>
-                        </li>
-                    </ul>
-                    <a th:href="@{/login}" style="text-decoration: none;">Log in</a>
-                </div>
-            </nav>
-
-            <div class="mt-2 mb-3 text-center">
+            <div class=" mb-3 text-center">
                 <h2>Manage User: [[${pageTitle}]]</h2>
             </div>
 
@@ -142,6 +82,7 @@
                     </div>
                 </div>
             </form>
+
             <div class="modal fade text-center" id="modalDialog">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -158,6 +99,7 @@
                     </div>
                 </div>
             </div>
+
             <div th:replace="fragments:: footer"></div>
         </div>
         <script type="text/javascript">

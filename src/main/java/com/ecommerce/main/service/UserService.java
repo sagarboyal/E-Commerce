@@ -18,4 +18,6 @@ public interface UserService {
     public User findById(Integer id) throws UserNotFoundException;
     public void updateUserStatus(Integer id, boolean enabled);
     public Page<User> listByPage(Integer pageNum, String sortField, String sortDir, String keyword);
+    public User getByEmail(String email);
+    public  User updateAccount(User userInForm);
 }

@@ -113,6 +113,7 @@ public class UserController {
                                     RedirectAttributes redirectAttributes){
         try{
             User data = userService.findById(id);
+            model.addAttribute("pageHeader", data.getFirstName()+" "+data.getLastName()+" Profile");
             model.addAttribute("pageTitle", "Edit User With ID "+id);
             model.addAttribute("user", data);
             model.addAttribute("listRoles", userService.listRoles());
