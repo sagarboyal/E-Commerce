@@ -60,6 +60,7 @@ public class UserController {
         model.addAttribute("keyword", keyword);
         return "admin/users";
     }
+
     @GetMapping("/new")
     public String newUserHandler(Model model){
         User user = new User();
@@ -69,6 +70,7 @@ public class UserController {
         model.addAttribute("listRoles", userService.listRoles());
         return "admin/user_form";
     }
+
     @PostMapping("/save")
     public String saveUserHandler(@ModelAttribute("user") User user,
                                   RedirectAttributes redirectAttributes,
@@ -123,6 +125,7 @@ public class UserController {
             return "redirect:/users";
         }
     }
+
     @GetMapping("delete/{id}")
     public String deleteUserHandler(@PathVariable(name = "id") Integer id,
                                     RedirectAttributes redirectAttributes){
@@ -150,12 +153,14 @@ public class UserController {
         UserCsvExporter exporter = new UserCsvExporter();
         exporter.export(userList, response);
     }
+
     @GetMapping("export/excel")
     public void exportExcelHandler(HttpServletResponse response) throws IOException {
         List<User> userList = userService.listAll(); // by default ascending order by user id to change update list all function in User Service by changing properties of sort by function
         UserExcelExporter exporter = new UserExcelExporter();
         exporter.export(userList, response);
     }
+
     @GetMapping("export/pdf")
     public void exportPdfHandler(HttpServletResponse response) throws IOException {
         List<User> userList = userService.listAll(); // by default ascending order by user id to change update list all function in User Service by changing properties of sort by function

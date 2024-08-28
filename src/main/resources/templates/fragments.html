@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/font awesome/all.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -43,39 +44,81 @@
         <div class="collapse navbar-collapse" id="topNavbar">
             <!-- Centered links -->
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAuthority('Admin')">
                     <a class="nav-link" th:href="@{/users}">Users</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Brands</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Customers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Shipping</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Sales Report</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Articles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Menus</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Settings</a>
-                </li>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/categories}">Categories</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/brands}">Brands</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson', 'Shipper')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/products}">Products</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Assistant')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/questions}">Questions</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Assistant')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/reviews}">Reviews</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/customers}">Customers</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/shipping}">Shipping</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Shipper')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/orders}">Orders</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/report}">Sales Report</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/articles}">Articles</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/menus}">Menus</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasAuthority('Admin')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/settings}">Settings</a>
+                    </li>
+                </th:block>
             </ul>
 
             <!-- Logout button on the right -->
@@ -87,9 +130,13 @@
                         <img th:src="@{/images/default-user.png}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" th:href="@{/account}">Profile</a>
+                        <a class="dropdown-item" th:href="@{/account}">
+                            Profile <i class="fa fa-user"></i>
+                        </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" id="logoutLink" href="">Logout</a>
+                        <a class="dropdown-item text-danger" id="logoutLink" href="#">
+                            Logout <i class="fa fa-sign-out"></i>
+                        </a>
                     </div>
                 </li>
             </ul>

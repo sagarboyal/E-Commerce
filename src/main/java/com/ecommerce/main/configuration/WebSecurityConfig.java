@@ -40,6 +40,7 @@ public class WebSecurityConfig {
         http.authenticationProvider(daoAuthenticationProvider());
 
         http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/users/**").hasAuthority("Admin")
                                 .anyRequest().authenticated() // All other requests require authentication
                 )
                 .formLogin(form -> form

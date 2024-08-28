@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
 <head th:replace="fragments:: header(${pageHeader})"/>
 <body>
 <div class="container-fluid">
+    <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+        <input type="submit">
+    </form>
 
-    <div th:replace="fragments:: navbar"></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"  style="margin-top: -20px;">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/images/logo.png}">
+            Flipkart
+        </a>
+
+        <!-- Toggler for mobile screens -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar" aria-controls="topNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="topNavbar">
+            <!-- Centered links -->
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item" sec:authorize="hasAuthority('Admin')">
+                    <a class="nav-link" th:href="@{/users}">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Brands</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Customers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Shipping</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Sales Report</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Articles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Menus</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAuthority('Admin')">
+                    <a class="nav-link" th:href="@{/}">Settings</a>
+                </li>
+            </ul>
+
+            <!-- Logout button on the right -->
+            <div class="nav-item">
+                <a class="text-danger" id="logoutLink" href="#" style="text-decoration: none;">
+                    Logout <i class="fa fa-sign-out"></i>
+                </a>
+            </div>
+
+        </div>
+    </nav>
 
     <div class=" mb-3 text-center">
         <h2>Your Account Details</h2>
